@@ -4,7 +4,6 @@ const TOTAL_PIXELS = 512;
 createSquares(NOF_SQUARES);
 
 const nofSquaresInputEl = document.getElementById('number-of-squares');
-// nofSquaresInputEL.placeholder = NOF_SQUARES;
 
 const nofSquaresBtn = document.querySelector('form button');
 nofSquaresBtn.addEventListener('click', (e) => {
@@ -42,12 +41,12 @@ function createSquares(nofSquares) {
     for (let j = 0; j < nofSquares; j++) {
       squares[i][j] = document.createElement('div');
 
-      squares[i][j].style.backgroundColor = 'lightgray';
+      squares[i][j].style.backgroundColor = 'rgb(230,230,230)';
       squares[i][j].style.width = squareLength + 'px';
       squares[i][j].style.height = squareLength + 'px';
 
       squares[i][j].addEventListener('mouseenter', () => {
-        squares[i][j].style.backgroundColor = 'black';
+        darkenProgressively(squares[i][j]);
       })
 
 
@@ -57,6 +56,23 @@ function createSquares(nofSquares) {
     squareContainerEl.appendChild(lineEls[i]);
   }
 }
+
+function darkenProgressively(square) {
+  let currentIntensity = Number(square.style.backgroundColor.split(",")[1]);
+  if (!(currentIntensity === 0)) {
+    currentIntensity = currentIntensity - 0.1*currentIntensity;
+
+    square.style.backgroundColor = 
+      'rgb(' 
+      + currentIntensity 
+      + ','
+      + currentIntensity
+      + ','
+      + currentIntensity
+      + ')'
+  }
+}
+
 
 
 
